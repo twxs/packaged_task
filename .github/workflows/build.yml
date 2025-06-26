@@ -4,8 +4,14 @@ on:
     workflow_dispatch:
 
 jobs:
+    
     build:
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest, macos-latest]
+                compiler: [g++, clang]  # Specify compiler versions to test
+                cxxstd: [17, 20]  # Specify the language standard to test
 
         steps:
             - name: Checkout code
@@ -13,6 +19,8 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  cmake .
+                  cmake -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} \
+                        -CMAKE_CXX_STANDARD=${{ matrix.cxxstd }} \
+                        .
                   cmake --build .
                   ctest .
