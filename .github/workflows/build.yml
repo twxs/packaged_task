@@ -8,6 +8,7 @@ jobs:
     build:
         runs-on: ${{ matrix.os }}
         strategy:
+            fail-fast: false
             matrix:
                 os: [ubuntu-latest, macos-latest, windows-latest]
                 
@@ -16,8 +17,8 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
 
-            - name: Install dependencies
+            - name: Build And Test
               run: |
                   cmake .
                   cmake --build .
-                  ctest .
+                  ctest -V .
