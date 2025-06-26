@@ -13,7 +13,6 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(packaged_task main.cpp)
-target_compile_options(packaged_task PRIVATE -Wall -Wextra -Wpedantic)
 
 target_link_libraries(packaged_task PRIVATE gtest gtest_main)
 
