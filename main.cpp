@@ -38,14 +38,16 @@ TEST(PackagedTask, ObjectFunctor) {
         std::future<void> result;
         {
             std::packaged_task<void()> task(Functor{&instance_count});
-            EXPECT_EQ(instance_count, 1);
+            EXPECT_EQ(instance_count, 1) << "Packaged task should own an instance of Functor";
             result = task.get_future();
             task();
+            EXPECT_EQ(instance_count, 1) << "Packaged task should keep the Functor instance after its execution";
+
         }
-        EXPECT_EQ(instance_count, 0);
+        EXPECT_EQ(instance_count, 0) << "Packaged task should destroy the Functor instance after its destruction";
 
         result.get();
-        EXPECT_EQ(instance_count, 0);
+        EXPECT_EQ(instance_count, 0) << "future should not keep the Functor instance alive after its execution";
     }
-    EXPECT_EQ(instance_count, 0);
+    EXPECT_EQ(instance_count, 0) << "future should not keep the Functor instance alive after its destruction";
 }
