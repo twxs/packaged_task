@@ -20,7 +20,7 @@ jobs:
             - name: Install dependencies
               run: |
                   cmake -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} \
-                        -CMAKE_CXX_STANDARD=${{ matrix.cxxstd }} \
+                        -DCMAKE_CXX_STANDARD=${{ matrix.cxxstd }} \
                         .
                   cmake --build .
                   ctest .
