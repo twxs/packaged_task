@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.50)
+cmake_minimum_required(VERSION 3.31)
 
 project(packaged_task VERSION 1.0.0 LANGUAGES CXX)
 
