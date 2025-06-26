@@ -9,9 +9,8 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                os: [ubuntu-latest, macos-latest]
-                compiler: [g++, clang]  # Specify compiler versions to test
-                cxxstd: [17, 20]  # Specify the language standard to test
+                os: [ubuntu-latest, macos-latest, windows-latest]
+                
 
         steps:
             - name: Checkout code
@@ -19,8 +18,6 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  cmake -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} \
-                        -DCMAKE_CXX_STANDARD=${{ matrix.cxxstd }} \
-                        .
+                  cmake .
                   cmake --build .
                   ctest .
